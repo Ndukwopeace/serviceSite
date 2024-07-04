@@ -24,6 +24,8 @@ export class ServiceController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateServiceDto: UpdateServiceDto) {
+    console.log(updateServiceDto);
+    
     return this.serviceService.update(id, updateServiceDto);
   }
 
@@ -31,4 +33,6 @@ export class ServiceController {
   remove(@Param('id') id: string) {
     return this.serviceService.remove(+id);
   }
+
+  
 }

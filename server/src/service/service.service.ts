@@ -15,22 +15,25 @@ export class ServiceService {
   }
 
    findAll() {
-    return  this.serviceRepository.find();
+    // find all with their related entity 
+    return  this.serviceRepository.find({relations : { location : true}});
   }
 
    findOne(id: string) : Promise<serviceEntity> {
-    return this.serviceRepository.findOneBy({id});
+    return this.serviceRepository.findOne({where: {id} , relations: { location : true}});
   }
 
    async update(id: string, updateServiceDto: UpdateServiceDto) : Promise<any> {
 
     try {
-    let serviceExist = this.findOne(id);
+    const serviceExist = await this.findOne(id);
       if (!serviceExist) {
         throw new NotFoundException('Service not found');
       }
-      return this.serviceRepository.update({id: `${id}` }, updateServiceDto)
+      return await this.serviceRepository.update({id: serviceExist.id}, updateServiceDto);
+      
     } catch (error) {
+      console.log(error.message);
       throw new HttpException( "not found",HttpStatus.NOT_FOUND)
     }
 

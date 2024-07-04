@@ -1,3 +1,4 @@
+import { LocationEntity } from "src/location/entities/location.entity";
 import { serviceEntity } from "src/service/entities/service.entity";
 import { DataSource, DataSourceOptions} from "typeorm";
 
@@ -9,7 +10,8 @@ export const dataSourceOptions : DataSourceOptions = {
     database : "findme",
     password : "root",
     entities: [
-     serviceEntity
+     serviceEntity,
+     LocationEntity
     ],
     synchronize : true,
 }
